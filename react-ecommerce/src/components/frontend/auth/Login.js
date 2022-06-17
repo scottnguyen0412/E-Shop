@@ -31,6 +31,7 @@ function Login() {
       axios.post(`api/login`, data).then(res => {
         if(res.data.status === 200)
         {
+          // Đăng nhập thành công thì sẽ lưu trữ token trong local storage
           localStorage.setItem('auth_token',res.data.token);
           localStorage.setItem('auth_name',res.data.username);
           swal("Success", res.data.message,"success")

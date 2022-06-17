@@ -79,4 +79,15 @@ class AuthController extends Controller
             }
         }
     }
+
+    // Logout sytem
+    public function logout()
+    {
+        // Check auth user muốn logout để xóa token
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Logged Out Successfully',
+        ]);
+    }
 }
