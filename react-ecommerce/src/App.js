@@ -5,7 +5,7 @@ import MasterLayout from './layouts/admin/MasterLayout';
 import Home from './components/frontend/Home';
 import Register from './components/frontend/auth/Register';
 import Login from './components/frontend/auth/Login';
-
+import AdminPrivateRoute from './AdminPrivateRoute';
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
 // Mỗi lần request được gửi đến thì dều accept
@@ -37,8 +37,9 @@ function App() {
             </Route>
 
             <Route exact path="/" component={Home}/>
-            <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>} />
+            {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>} /> */}
 
+            <AdminPrivateRoute path="/admin" name="Admin"/>
           </Switch>
         </Router>
     </div>
