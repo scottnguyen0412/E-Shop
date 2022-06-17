@@ -35,8 +35,15 @@ function Login() {
           localStorage.setItem('auth_token',res.data.token);
           localStorage.setItem('auth_name',res.data.username);
           swal("Success", res.data.message,"success")
-          // after login success then redirect to home page
-          history.push('/');
+          
+          if(res.data.role === "admin")
+          {
+              history.push('/admin');
+          }else
+          {
+            // after login success then redirect to home page
+            history.push('/');
+          }
         }
         else if(res.data.status === 401)
         {

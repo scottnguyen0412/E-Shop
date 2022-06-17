@@ -6,6 +6,12 @@ import Home from './components/frontend/Home';
 import Register from './components/frontend/auth/Register';
 import Login from './components/frontend/auth/Login';
 import AdminPrivateRoute from './AdminPrivateRoute';
+import Page403 from './components/errors/Page403';
+import Page404 from './components/errors/Page404';
+
+
+
+
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
 // Mỗi lần request được gửi đến thì dều accept
@@ -25,7 +31,11 @@ function App() {
     <div className="App">
         <Router>
           <Switch>
+            <Route path="/403" component={Page403}/>
+            <Route path="/404" component={Page404}/>
+
             <Route path="/login">
+
               {/* Nếu user đã đăng nhập mà tự chỉnh trên thanh url ví dụ: /login thì hệ thống sẽ check
                   người dùng đã đăng nhập hay chưa bằng cách check token trong local storage.
                   Nếu đã đăng nhập mà còn chỉnh trên thanh url: /login thì hệ thống sẽ tự chuyển hướng đến Home page

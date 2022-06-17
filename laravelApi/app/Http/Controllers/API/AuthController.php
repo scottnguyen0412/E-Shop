@@ -68,13 +68,24 @@ class AuthController extends Controller
             }
             // If email and password is correct 
             else {
-                $token = $user->createToken($user->email . '_Token')->plainTextToken;
+                if($user->roles == 1)
+                {
+                    $role = 'admin';
+                    $token = $user->createToken($user->email . '_AdminToken',['server:admin'])->plainTextToken;
+
+                }
+                else
+                {   
+                    $role = '';
+                    $token = $user->createToken($user->email . '_Token',['server:user'])->plainTextToken;
+                }
                 // reponse 200 nếu mọi thú là thành công
                 return response()->json([
                     'status' => 200,
                     'username' => $user->name,
                     'token' => $token,
                     'message' => 'Logged In Successfully',
+                    'role' => $role
                 ]);
             }
         }

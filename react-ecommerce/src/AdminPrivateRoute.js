@@ -34,12 +34,29 @@ function AdminPrivateRoute({...rest}) {
         return Promise.reject(errs);
     });
 
+    axios.interceptors.response.use(function(response){
+        return response;
+    }, function(errs) {
+        if(errs.response.status === 403) //access denied
+        {
+            swal('Forbiden', errs.response.data.message, 'error');
+            history.push('/403');
+        }
+        else if (errs.response.status === 404)
+        {
+            swal('404 Not Found', 'Url/Page Not Found', 'warning');
+            history.push('/404');
+        }
+        return Promise.reject(errs);
+    }
+    )
     if(loading)
     {
         return <div className='text-center'>Loading...
                     <img height="20px" src="https://gifimage.net/wp-content/uploads/2018/11/loading-gif-free-download-6.gif"/>
                 </div>;
     }
+
 
     return (
         <Route {...rest}
