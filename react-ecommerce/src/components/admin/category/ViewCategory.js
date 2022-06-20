@@ -39,11 +39,11 @@ function ViewCategory() {
                     <td>{item.slug}</td>
                     <td>{item.status}</td>
                     <td className='dropdown'>
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
                             Action          
-                        <span class="caret"></span></button>
-                        <div class="dropdown-menu">
-                            <li><Link className='dropdown-item' to={`edit-cateogry/${item.id}`}>Edit</Link></li>
+                        <span className="caret"></span></button>
+                        <div className="dropdown-menu">
+                            <li><Link className='dropdown-item' to={`edit-category/${item.id}`}>Edit</Link></li>
                             <li><button type='submit' className='dropdown-item' to={`delete-category/${item.id}`}>Delete</button></li>
                         </div>
                     </td>

@@ -21,7 +21,69 @@ class CategoryController extends Controller
         ]);
     }
 
+    // Edit category
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        if($category)
+        {
+            return response()->json([
+                'status' => 200,
+                'category' => $category
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message' => 'No Category Id found'
+            ]);
+        }
+    }
+    public function update(Request $request, $id)
+    {
+        // Validation input
+        $validator = Validator::make($request->all(), [
+            'meta_title' => 'required|max:191',
+            'slug'=> 'required|max:191',
+            'name' => 'required|max:191',
+        ]);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>422,
+                'errors'=>$validator->messages(),
+            ]);
+        }
+        else{
+            $category = Category::find($id);
+            if($category)
+            {
+                $category->meta_title = $request->input('meta_title');
+                $category->meta_keyword = $request->input('meta_keyword');
+                $category->meta_description = $request->input('meta_description');
+                $category->slug = $request->input('slug');
+                $category->name = $request->input('name');    
+                $category->description = $request->input('description');
+                $category->status = $request->input('status') == TRUE ? '1':'0';
+                $category->save();
+                return response()->json([
+                    'status'=> 200,
+                    'message'=>'Category Updated Successfully',
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=> 404,
+                    'message'=>'No Category Id Found',
+                ]);
+            }
+        }
+    }
 
+
+    // Add category and save
     public function store(Request $request)
     {
         // Validation input
