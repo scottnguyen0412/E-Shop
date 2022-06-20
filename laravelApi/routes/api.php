@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\Admin\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +23,9 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {
         return response()->json(['messages' => 'You are in', 'status' => 200], 200);
     });
-    Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Category
+    Route::post('/store-category',[CategoryController::class, 'store']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {

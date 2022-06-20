@@ -41,6 +41,13 @@ const Sidebar= () => {
                     <span>Profile</span>
                 </Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link collapsed" to="/admin/add-category" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i className="fas fa-fw fa-cog"></i>
+                    <span>Category</span>
+                </Link>
+            </li>
 
             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
             <li className="nav-item">
