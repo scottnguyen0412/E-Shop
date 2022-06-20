@@ -42,11 +42,18 @@ const Sidebar= () => {
                 </Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link collapsed" to="/admin/add-category" data-target="#collapseTwo"
+                <Link className="nav-link collapsed" to="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i className="fas fa-fw fa-cog"></i>
+                    <i className="fas fa-plus"></i>
                     <span>Category</span>
                 </Link>
+                <div id="collapseTwo" className="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div className="bg-white py-2 collapse-inner rounded">
+                        <Link className="collapse-item" to="/admin/add-category">Add Category</Link>
+                        <Link className="collapse-item" to="/admin/view-category">View Category</Link>
+                    </div>
+                </div>
             </li>
 
             {/* <!-- Nav Item - Utilities Collapse Menu --> */}
