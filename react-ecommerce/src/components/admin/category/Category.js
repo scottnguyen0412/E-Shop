@@ -82,36 +82,36 @@ function Category() {
                 </ul>
                 <div className="tab-content" id="myTabContent">
                     <div className="tab-pane card-body border fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Slug</label>
                             <input type='text' name='slug' onChange={handleInput} value={categoryInput.slug} className='form-control' />
                             {/* <span className='text-danger'>{categoryInput.error_list.slug}</span> */}
                         </div>
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Name</label>
                             <input type='text' name='name' onChange={handleInput} value={categoryInput.name} className='form-control' />
                             {/* <span className='text-danger'>{categoryInput.error_list.name}</span> */}
                         </div>
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Description</label>
                             <textarea type='text' name='description' onChange={handleInput} value={categoryInput.description} className='form-control'></textarea>
                         </div>
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label className="p-2">Status</label>
                             <input type="checkbox" onChange={handleInput} value={categoryInput.status} name='status' /> Status: 0=shown/1=hide
                         </div>
                     </div>
                     <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Meta Title</label>
                             <input type='text' name='meta_title' onChange={handleInput} value={categoryInput.meta_title} className='form-control' />
                             {/* <span className='text-danger'>{categoryInput.error_list.meta_title}</span> */}
                         </div>
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Meta Keywords</label>
                             <input type='text' name='meta_keyword' onChange={handleInput} value={categoryInput.meta_keyword} className='form-control' />
                         </div>
-                        <div className='form-group mb-3'>
+                        <div className='form-group mb-3 font-weight-bold'>
                             <label>Meta Description</label>
                             <textarea type='text' name='meta_description' onChange={handleInput} value={categoryInput.meta_description} className='form-control'></textarea>
                         </div>

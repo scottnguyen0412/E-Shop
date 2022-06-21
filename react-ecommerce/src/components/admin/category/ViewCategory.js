@@ -66,7 +66,7 @@ function ViewCategory() {
                         <span className="caret"></span></button>
                         <div className="dropdown-menu">
                             <li><Link className='dropdown-item' to={`edit-category/${item.id}`}>Edit</Link></li>
-                            <li><button type='submit' onClick={(e) => window.confirm("Are you sure to delete this category?", deleteCategory(e, item.id))} className='dropdown-item'>Delete</button></li>
+                            <li><button type='submit' onClick={(e) => {if(window.confirm("Are you sure to delete this category?")){{deleteCategory(e, item.id)}}}} className='dropdown-item'>Delete</button></li>
                         </div>
                     </td>
                 </tr>

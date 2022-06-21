@@ -21,6 +21,18 @@ class CategoryController extends Controller
         ]);
     }
 
+    // Get all category
+    public function allcategory()
+    {
+        // Lấy tất cả category khi status = '0'. Nghĩa là status được show
+        $category = Category::where('status', '0')->get();
+        return  response()->json([
+            'status' => 200,
+            'category' => $category,
+            
+        ]);
+    }
+
     // Edit category
     public function edit($id)
     {

@@ -50,6 +50,7 @@ const Sidebar= () => {
                 <div id="collapseTwo" className="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
+                        <h6 className="collapse-header">Custom Category:</h6>
                         <Link className="collapse-item" to="/admin/add-category">Add Category</Link>
                         <Link className="collapse-item" to="/admin/view-category">View Category</Link>
                     </div>
@@ -61,16 +62,14 @@ const Sidebar= () => {
                 <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i className="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>Product</span>
                 </a>
                 <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <h6 className="collapse-header">Custom Utilities:</h6>
-                        <a className="collapse-item" href="utilities-color.html">Colors</a>
-                        <a className="collapse-item" href="utilities-border.html">Borders</a>
-                        <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a className="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 className="collapse-header">Custom Product:</h6>
+                        <Link className="collapse-item" to="/admin/add-product">Add Product</Link>
+                        <Link className="collapse-item" to="/admin/view-product">View Product</Link>
                     </div>
                 </div>
             </li>
