@@ -8,6 +8,8 @@ function ViewProduct() {
   const[loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'View Product';
+
     // fetch data
     axios.get(`/api/view-product`).then(res => {
         if(res.data.status === 200)
@@ -32,7 +34,7 @@ function ViewProduct() {
        display_productTable = viewProduct.map((item) => {
         return (
           <tr key={item.id}>
-            <td>{item.category_id}</td>
+            <td>{item.category.name}</td>
             <td>{item.name}</td>
             <td>{item.selling_price}</td>
 
