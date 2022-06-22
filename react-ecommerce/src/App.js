@@ -1,16 +1,13 @@
 import React from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 import axios from 'axios';
-import MasterLayout from './layouts/admin/MasterLayout';
-import Home from './components/frontend/Home';
+// import MasterLayout from './layouts/admin/MasterLayout';
 import Register from './components/frontend/auth/Register';
 import Login from './components/frontend/auth/Login';
 import AdminPrivateRoute from './AdminPrivateRoute';
 import Page403 from './components/errors/Page403';
 import Page404 from './components/errors/Page404';
-
-
-
+import PublicRoute from './PublicRoute';
 
 // Note: must use localhost:8000
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -46,10 +43,16 @@ function App() {
               {localStorage.getItem('auth_token') ? <Redirect to='/' /> : <Register/>}
             </Route>
 
-            <Route exact path="/" component={Home}/>
-            {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>} /> */}
+            {/* <Route exact path="/" component={Home}/>
+            <Route exact path="/About" component={About}/>
+          <Route exact path="/Contact" component={Contact}/> */}
 
+            {/* <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>} /> */}
+            
+            {/* Route for admin dashboard */}
             <AdminPrivateRoute path="/admin" name="Admin"/>
+            {/* Route for frontend */}
+            <PublicRoute path="/" name="Home" />
           </Switch>
         </Router>
     </div>
