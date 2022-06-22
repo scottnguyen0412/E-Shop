@@ -72,9 +72,9 @@ class ProductController extends Controller
                 $product->image = 'uploads/product/'.$filename;
             
             }
-            $product->featured = $request->input('featured') == TRUE ? '1':'0';
-            $product->popular = $request->input('popular') == TRUE ? '1':'0';
-            $product->status = $request->input('status') == TRUE ? '1':'0';
+            $product->featured = $request->input('featured');
+            $product->popular = $request->input('popular');
+            $product->status = $request->input('status');
             
             $product->save();
 
@@ -164,9 +164,9 @@ class ProductController extends Controller
                     $product->image = 'uploads/product/'.$filename;
                 
                 }
-                $product->featured = $request->input('featured') == TRUE ? '1':'0';
-                $product->popular = $request->input('popular') == TRUE ? '1':'0';
-                $product->status = $request->input('status') == TRUE ? '1':'0';
+                $product->featured = $request->input('featured');
+                $product->popular = $request->input('popular'); 
+                $product->status = $request->input('status'); 
                 
                 $product->update();
                 return response()->json([

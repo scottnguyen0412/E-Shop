@@ -77,7 +77,7 @@ class CategoryController extends Controller
                 $category->slug = $request->input('slug');
                 $category->name = $request->input('name');    
                 $category->description = $request->input('description');
-                $category->status = $request->input('status') == TRUE ? '1':'0';
+                $category->status = $request->input('status');
                 $category->save();
                 return response()->json([
                     'status'=> 200,
@@ -119,7 +119,7 @@ class CategoryController extends Controller
             $category->slug = $request->input('slug');
             $category->name = $request->input('name');    
             $category->description = $request->input('description');
-            $category->status = $request->input('status') == TRUE ? '1':'0';
+            $category->status = $request->input('status');
             $category->save();
             return response()->json([
                 'status'=> 200,

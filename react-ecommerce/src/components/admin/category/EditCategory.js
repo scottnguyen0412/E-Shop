@@ -8,6 +8,7 @@ function EditCategory(props) {
     const [loading, setLoading] = useState(true);
     const[categoryInput, setCategory] = useState([]);
     const[error, setError] = useState([]);
+    
     useEffect(() => {
 
         const category_id = props.match.params.id;
@@ -16,7 +17,10 @@ function EditCategory(props) {
             res => { 
                 if(res.data.status === 200)
                 {
+                    // Cập nhật category
                     setCategory(res.data.category);
+                    // Cập nhật checkbox
+                    setCheckbox(res.data.category);
                 }
                 else if (res.data.status === 404)
                 {
@@ -33,17 +37,33 @@ function EditCategory(props) {
         setCategory({...categoryInput, [e.target.name]: e.target.value});
 
     }
+    const [allCheckbox, setCheckbox] = useState([]);
+
+    const handleCheckbox = (e) => {
+        e.persist();
+        // Get all input from user
+        setCheckbox({...allCheckbox, [e.target.name]: e.target.checked});
+    }
 
     // Update data
     const updateCategory = (e) => {
         e.preventDefault();
 
         // Biến "data" sẽ lưu giá trị của categoryInput
-        const data = categoryInput;
         const category_id = props.match.params.id;
+        const data = {
+            slug: categoryInput.slug,
+            name: categoryInput.name,
+            description: categoryInput.description,
+            status: allCheckbox.status ? '1':'0',
+            meta_title: categoryInput.meta_title,
+            meta_keyword: categoryInput.meta_keyword,
+            meta_description: categoryInput.meta_description,
+        }
         axios.post(`/api/update-category/${category_id}`, data).then(res => {
             if(res.data.status === 200)
             {
+                
                 swal('Success', res.data.message, 'success');
                 setError([]);
                 history.push('/admin/view-category');
@@ -106,7 +126,7 @@ function EditCategory(props) {
                             </div>
                             <div className='form-group mb-3'>
                                 <label className="p-2">Status</label>
-                                <input type="checkbox" onChange={handleInput} value={categoryInput.status} name='status' /> Status: 0=shown/1=hide
+                                <input type="checkbox" onChange={handleCheckbox} defaultChecked={allCheckbox.status === 1 ? true:false} name='status' /> Status: 0=shown/1=hide
                             </div>
                         </div>
                         <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">

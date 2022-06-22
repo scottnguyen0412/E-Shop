@@ -10,7 +10,6 @@ function Category() {
         slug: '',
         name: '',
         description: '',
-        status: '',
         meta_title: '',
         meta_keyword: '',
         meta_description: '',
@@ -21,6 +20,13 @@ function Category() {
         e.persist();
         setCategory({ ...categoryInput, [e.target.name]: e.target.value })
     }
+  const [allCheckbox, setCheckbox] = useState([]);
+
+    const handleCheckbox = (e) => {
+    e.persist();
+    // Get all input from user
+    setCheckbox({...allCheckbox, [e.target.name]: e.target.checked});
+    };
 
     const submitCategory = (e) => {
         e.preventDefault();
@@ -28,7 +34,7 @@ function Category() {
             slug: categoryInput.slug,
             name: categoryInput.name,
             description: categoryInput.description,
-            status: categoryInput.status,
+            status: allCheckbox.status,
             meta_title: categoryInput.meta_title,
             meta_keyword: categoryInput.meta_keyword,
             meta_description: categoryInput.meta_description,
@@ -98,7 +104,7 @@ function Category() {
                         </div>
                         <div className='form-group mb-3 font-weight-bold'>
                             <label className="p-2">Status</label>
-                            <input type="checkbox" onChange={handleInput} value={categoryInput.status} name='status' /> Status: 0=shown/1=hide
+                            <input type="checkbox" onChange={handleCheckbox} defaultChecked={allCheckbox.status} name='status' /> Status: 0=shown/1=hide
                         </div>
                     </div>
                     <div className="tab-pane card-body border fade" id="seo-tags" role="tabpanel" aria-labelledby="seo-tags-tab">

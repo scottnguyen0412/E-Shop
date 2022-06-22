@@ -1,10 +1,11 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import swal from 'sweetalert';
 
 function AddProduct() {
 
+  const history = useHistory();
   const [categorylist, setCategorylist] = useState([]);
 
   const [productInput, setProduct] = useState({
@@ -21,9 +22,6 @@ function AddProduct() {
     original_price: '',
     quantity: '',
     brand: '',
-    featured: '',
-    popular: '',
-    status: '',
   });
 
   const [picture, setPicture] = useState([]);
@@ -34,6 +32,13 @@ function AddProduct() {
     e.persist();
     // Get all input from user
     setProduct({...productInput, [e.target.name]: e.target.value});
+  }
+  const [allCheckbox, setCheckbox] = useState([]);
+
+  const handleCheckbox = (e) => {
+    e.persist();
+    // Get all input from user
+    setCheckbox({...allCheckbox, [e.target.name]: e.target.checked});
   }
 
   const handleImage = (e) => {
@@ -47,6 +52,7 @@ function AddProduct() {
       if(res.data.status === 200)
       {
         setCategorylist(res.data.category);
+        
       }
     })
   },[]);
@@ -68,15 +74,15 @@ function AddProduct() {
     formData.append('original_price', productInput.original_price);
     formData.append('quantity', productInput.quantity);
     formData.append('brand', productInput.brand);
-    formData.append('featured', productInput.featured);
-    formData.append('popular', productInput.popular);
-    formData.append('status', productInput.status);
+    formData.append('featured', allCheckbox.featured);
+    formData.append('popular', allCheckbox.popular);
+    formData.append('status', allCheckbox.status);
 
     axios.post(`/api/store-product`,formData).then(res => {
       if(res.data.status === 200)
       {
         swal('Success', res.data.message, 'success');
-
+        history.push('/admin/view-product');
         // Sau khi submit thành công thì sẽ làm mới input
         setProduct({...productInput,
           category_id: '',
@@ -205,15 +211,15 @@ function AddProduct() {
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Featured (Checked=shown)</label><br/>
-                  <input type="checkbox" name='featured' onChange={handleInput} value={productInput.featured} className="col-md-8"/>
+                  <input type="checkbox" name='featured' onChange={handleCheckbox} defaultChecked={allCheckbox.featured} className="col-md-8"/>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Popular (Checked=shown)</label><br/>
-                  <input type="checkbox" name='popular' onChange={handleInput} value={productInput.popular} className="col-md-8"/>
+                  <input type="checkbox" name='popular' onChange={handleCheckbox} defaultChecked={allCheckbox.popular} className="col-md-8"/>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Status (Checked=hidden)</label><br/>
-                  <input type="checkbox" name='status' onChange={handleInput} value={productInput.status} className="col-md-8"/>
+                  <input type="checkbox" name='status' onChange={handleCheckbox} defaultChecked={allCheckbox.status} className="col-md-8"/>
                 </div>
                   <button type='submit' className='btn btn-outline-primary px-4 mt-2'>
                     Submit
