@@ -54,6 +54,7 @@ function ViewCategory() {
     }
     else
     {
+        // map() truy cập mảng và lặp để lấy data
         viewcategory_byTable = categorylist.map( (item) => {
             return (
                 <tr key={item.id}>

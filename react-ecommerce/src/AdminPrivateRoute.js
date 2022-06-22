@@ -6,6 +6,7 @@ import MasterLayout from './layouts/admin/MasterLayout';
 function AdminPrivateRoute({...rest}) {
     
     const history = useHistory();
+    // Check role user can access Dashboard
     const [Authenticated, setAuthenticated] = useState(false);
     const [loading, setloading] = useState(true);
 
