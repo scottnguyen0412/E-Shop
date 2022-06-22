@@ -72,14 +72,13 @@ class AuthController extends Controller
                 {
                     $role = 'admin';
                     $token = $user->createToken($user->email . '_AdminToken',['server:admin'])->plainTextToken;
-
                 }
                 else
                 {   
                     $role = '';
                     $token = $user->createToken($user->email . '_Token',['server:user'])->plainTextToken;
                 }
-                // reponse 200 nếu mọi thú là thành công
+                // reponse 200 nếu mọi thứ là thành công
                 return response()->json([
                     'status' => 200,
                     'username' => $user->name,

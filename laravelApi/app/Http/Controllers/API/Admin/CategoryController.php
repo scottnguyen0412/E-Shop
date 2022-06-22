@@ -21,7 +21,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    // Get all category
+    // Get Category for Product
     public function allcategory()
     {
         // Lấy tất cả category khi status = '0'. Nghĩa là status được show

@@ -10,6 +10,14 @@ use File;
 
 class ProductController extends Controller
 {
+    public function index()
+    {
+        $product = Product::all();
+        return response()->json([
+            'status'=> 200,
+            'products'=>$product
+        ]);
+    }
     public function store(Request $request)
     {
         // Validation input

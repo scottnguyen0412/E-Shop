@@ -18,6 +18,7 @@ function Navbar() {
             }
         });
     }
+
     var AuthButton = '';
 
     // Nếu không có token trong local storage thì sẽ show ra Login và Register cho user
@@ -40,7 +41,7 @@ function Navbar() {
         AuthButton = (
             <li className="nav-item">
                     <button type='button' onClick={logoutSubmit} className="nav-link btn btn-warning btn-sm text-white" >Logout</button>
-                </li>
+            </li>
         );
     }
 
@@ -60,8 +61,11 @@ function Navbar() {
                 <li className="nav-item">
                     <Link className="nav-link" to="#">Collection</Link>
                 </li>
+                <li className='nav-item'>
+                    <Link className='nav-link' to="/admin">Dashboard</Link>
+                </li>
                 {AuthButton} 
-                </ul>
+                </ul> 
             </div>
             </div>
     </nav>
