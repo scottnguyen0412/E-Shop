@@ -1,6 +1,6 @@
-import axios from 'axios'
-import React, {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
+import { Link } from 'react-router-dom';
 function ViewProduct() {
 
   // vì có nhiều dữ liệu nên useState([]) được sử dụng mảng
@@ -31,7 +31,7 @@ function ViewProduct() {
   }
   else
   {
-       display_productTable = viewProduct.map((item) => {
+      display_productTable = viewProduct.map((item) => {
         return (
           <tr key={item.id}>
             <td>{item.category.name}</td>
@@ -45,8 +45,8 @@ function ViewProduct() {
                             Action          
                         <span className="caret"></span></button>
                         <div className="dropdown-menu">
-                            {/* <li><Link className='dropdown-item' to={`edit-product/${item.id}`}>Edit</Link></li>
-                            <li><button type='submit' onClick={(e) => {if(window.confirm("Are you sure to delete this product?")){{deleteProduct(e, item.id)}}}} className='dropdown-item'>Delete</button></li> */}
+                            <li><Link className='dropdown-item' to={`edit-product/${item.id}`}>Edit</Link></li>
+                            {/* <li><button type='submit' onClick={(e) => {if(window.confirm("Are you sure to delete this product?")){{deleteProduct(e, item.id)}}}} className='dropdown-item'>Delete</button></li> */}
                         </div>
             </td>
 

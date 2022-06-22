@@ -66,6 +66,7 @@ function EditCategory(props) {
                     <img height="20px" src="https://gifimage.net/wp-content/uploads/2018/11/loading-gif-free-download-6.gif"/>
                 </h4>
     }
+    
     return (
         <div className='container px-4'>
             <div className='card mt-4'>
