@@ -31,7 +31,17 @@ function ViewProduct() {
   }
   else
   {
+
+      var Product_status ='';
       display_productTable = viewProduct.map((item) => {
+        if(item.status == '0')
+        {
+          Product_status ='Shown';
+        }
+        else if(item.status == '1')
+        {
+          Product_status ='Hidden';
+        }
         return (
           <tr key={item.id}>
             <td>{item.category.name}</td>
@@ -46,7 +56,10 @@ function ViewProduct() {
                         <span className="caret"></span></button>
                         <div className="dropdown-menu">
                             <li><Link className='dropdown-item' to={`edit-product/${item.id}`}>Edit</Link></li>
-                            {/* <li><button type='submit' onClick={(e) => {if(window.confirm("Are you sure to delete this product?")){{deleteProduct(e, item.id)}}}} className='dropdown-item'>Delete</button></li> */}
+                            <li className='pl-3'>
+                              {Product_status}
+                            </li>
+                              {/* <button type='submit' onClick={(e) => {if(window.confirm("Are you sure to delete this product?")){{deleteProduct(e, item.id)}}}} className='dropdown-item'>Delete</button> */}
                         </div>
             </td>
 
