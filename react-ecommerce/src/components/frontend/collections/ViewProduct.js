@@ -59,11 +59,11 @@ function ViewProduct(props) {
                 return (
                     <div className='col-md-3' key={idx}>
                         <div className='card'>
-                            <Link to="">
+                            <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                 <img src={`http://localhost:8000/${item.image}`} className='w-100' alt={item.name} />
                             </Link>
                             <div className='card-body'>
-                                <Link>
+                                <Link to={`/collections/${item.category.slug}/${item.slug}`}>
                                     <h5>{item.name}</h5>
                                 </Link>
                             </div>
@@ -78,10 +78,8 @@ function ViewProduct(props) {
                     <div className='col-md-12'>
                         <h4 className='text-danger'>No Product Available for {category.name}</h4>
                     </div>
-
         }
     }
-    
     return (
         <div>
             <div className='py-3 bg-warning'>

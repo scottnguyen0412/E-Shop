@@ -32,8 +32,8 @@ function Login() {
         if(res.data.status === 200)
         {
           // Đăng nhập thành công thì sẽ lưu trữ token trong local storage
-          localStorage.setItem('auth_token',res.data.token);
-          localStorage.setItem('auth_name',res.data.username);
+          localStorage.setItem('auth_token',res.data.token); //Lưu token vào biến auth_token
+          localStorage.setItem('auth_name',res.data.username); //Lưu username của user vào auth_name
           swal("Success", res.data.message,"success")
           
           if(res.data.role === "admin")

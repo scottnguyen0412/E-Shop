@@ -20,7 +20,6 @@ function Navbar() {
     }
 
     var AuthButton = '';
-
     // Nếu không có token trong local storage thì sẽ show ra Login và Register cho user
     if(!localStorage.getItem('auth_token'))
     {

@@ -52,4 +52,39 @@ class FrontendController extends Controller
             ]);
         }
     }
+
+    public function viewproductDetail($category_slug, $product_slug)
+    {
+        // Check and get category có slug cùng với status = 0 là được show hay không
+        $category = Category::where('slug',$category_slug)->where('status', '0')->first();
+        if($category)
+        {
+            $product = Product::where('category_id',$category->id)
+                                        ->where('slug',$product_slug)
+                                        ->where('status','0')
+                                        ->first();
+
+            if($product) // Nếu product là có
+            {
+                return response()->json([
+                    'status'=>200,
+                    'product'=>$product,
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                'status' => 400,
+                'message'=>'No Product Found'
+            ]);
+            }
+        }
+        else
+        {
+            return response()->json([
+                'status' => 404,
+                'message'=>'No Category Found'
+            ]);
+        }
+    }
 }
