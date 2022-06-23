@@ -6,19 +6,22 @@ function ViewCategory() {
     const [loading, setLoading] = useState(true);
     const [category, setCategory] = useState([]);
     useEffect(() => {
+        let isMounted = true;
         axios.get(`/api/getCategory`).then(res => {
-            if(res.data.status === 200)
+            if(isMounted)
             {
-                // console.log(res.data.category);
-                // Get all value
-                setCategory(res.data.category);
-                setLoading(false);
+                if(res.data.status === 200)
+                {
+                    // console.log(res.data.category);
+                    // Get all value
+                    setCategory(res.data.category);
+                    setLoading(false);
+                }
             }
-            else
-            {
-
-            }
-        })
+        });
+        return () => {
+            isMounted = false
+        }
     }, [])
 
     if(loading)
