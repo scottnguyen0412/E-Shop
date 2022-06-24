@@ -74,9 +74,9 @@ function AddProduct() {
     formData.append('original_price', productInput.original_price);
     formData.append('quantity', productInput.quantity);
     formData.append('brand', productInput.brand);
-    formData.append('featured', allCheckbox.featured);
-    formData.append('popular', allCheckbox.popular);
-    formData.append('status', allCheckbox.status);
+    formData.append('featured', allCheckbox.featured ? '1':'0');
+    formData.append('popular', allCheckbox.popular ? '1':'0');
+    formData.append('status', allCheckbox.status ? '1':'0');
 
     axios.post(`/api/store-product`,formData).then(res => {
       if(res.data.status === 200)
@@ -98,9 +98,6 @@ function AddProduct() {
           original_price: '',
           quantity: '',
           brand: '',
-          featured: '',
-          popular: '',
-          status: '',
         });
         // Khi các input được điền thì sẽ remove các error ra khỏi 
         setError([]);
@@ -211,15 +208,15 @@ function AddProduct() {
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Featured (Checked=shown)</label><br/>
-                  <input type="checkbox" name='featured' onChange={handleCheckbox} defaultChecked={allCheckbox.featured} className="col-md-8"/>
+                  <input type="checkbox" name='featured' onChange={handleCheckbox} defaultChecked={allCheckbox.featured === 1 ? true:false } className="col-md-8"/>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Popular (Checked=shown)</label><br/>
-                  <input type="checkbox" name='popular' onChange={handleCheckbox} defaultChecked={allCheckbox.popular} className="col-md-8"/>
+                  <input type="checkbox" name='popular' onChange={handleCheckbox} defaultChecked={allCheckbox.popular === 1 ? true:false}  className="col-md-8"/>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Status (Checked=hidden)</label><br/>
-                  <input type="checkbox" name='status' onChange={handleCheckbox} defaultChecked={allCheckbox.status} className="col-md-8"/>
+                  <input type="checkbox" name='status' onChange={handleCheckbox} defaultChecked={allCheckbox.status === 1 ? true:false}  className="col-md-8"/>
                 </div>
                   <button type='submit' className='btn btn-outline-primary px-4 mt-2'>
                     Submit
@@ -227,7 +224,6 @@ function AddProduct() {
               </div>
             </div>
           </div>
-          
           </form>
         </div>
       </div>
