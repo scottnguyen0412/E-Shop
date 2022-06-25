@@ -109,7 +109,9 @@ function Cart() {
     // check trong cart có item hay không
     if(cart.length >0)
     {
-        cart_table = <div className='table-responsive'>
+        cart_table = 
+                                <div>
+                                    <div className='table-responsive'>
                                         <table className='table table-bordered'>
                                             <thead>
                                                 <tr>
@@ -150,6 +152,22 @@ function Cart() {
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div className='col-md-8'></div>
+                                        <div className='col-md-4'>
+                                            <div className='card card-body mt-3'>
+                                                <h4>
+                                                    Sub Total:
+                                                    <span className='float-end'>{totalCartPrice}</span>
+                                                </h4>
+                                                <h4>
+                                                    Grand Total:
+                                                    <span className='float-end'>{totalCartPrice}</span>
+                                                </h4>
+                                                <hr/>
+                                                <Link to="/checkout" className='btn btn-outline-primary'>Checkout</Link>
+                                            </div>
+                                    </div>
+                                </div>
     }
     else
      {
@@ -160,7 +178,6 @@ function Cart() {
                     </div>
      }
     return (
-            <div>
                 <div>
                     <div className='py-3 bg-warning'>
                         <div className='container'>
@@ -173,26 +190,11 @@ function Cart() {
                                 <div className='col-md-12'>
                                     {cart_table}
                                 </div>
-                                <div className='col-md-8'></div>
-                                <div className='col-md-4'>
-                                    <div className='card card-body mt-3'>
-                                        <h4>
-                                            Sub Total:
-                                            <span className='float-end'>{totalCartPrice}</span>
-                                        </h4>
-                                        <h4>
-                                            Grand Total:
-                                            <span className='float-end'>{totalCartPrice}</span>
-                                        </h4>
-                                        <hr/>
-                                        <Link to="/checkout" className='btn btn-outline-primary'>Checkout</Link>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
     )
 }
 
