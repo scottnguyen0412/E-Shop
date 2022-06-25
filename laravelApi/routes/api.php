@@ -32,6 +32,7 @@ Route::post('/add-to-cart',[CartController::class, 'addtocart']);
 Route::get('/cart',[CartController::class, 'viewcart']);
 
 Route::post('/cart-updatequantity/{cart_id}/{scope}',[CartController::class, 'updateQuantity']);
+Route::delete('/delete-cartitem/{cart_id}',[CartController::class, 'deleteCartItem']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {

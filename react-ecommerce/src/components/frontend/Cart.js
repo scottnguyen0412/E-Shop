@@ -74,6 +74,28 @@ function Cart() {
             }
         });
     }
+
+    // remove item out of cart
+    const deleteCartItem = (e, cart_id) => {
+        e.preventDefault();
+        // console.log(cart_id);
+        // anytime click thì giá trị sẽ có ngay lập tức
+        const thisClicked  = e.currentTarget;
+        thisClicked.innerText = "Removing";
+        axios.delete(`/api/delete-cartitem/${cart_id}`).then(res => {
+            if(res.data.status === 200)
+            {
+                swal("Success", res.data.message, "success");
+                // remove table row(tr) out of section
+                thisClicked.closest("tr").remove();
+            }
+            else if(res.data.status === 404)
+            {
+                swal('Error', res.data.message, 'error');
+                thisClicked.innerText = "Remove";
+            }
+        });
+    }
     
     if(loading)
     {
@@ -87,7 +109,7 @@ function Cart() {
     if(cart.length >0)
     {
         cart_table = <div className='table-responsive'>
-                                        <div className='table table-bordered'>
+                                        <table className='table table-bordered'>
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
@@ -99,9 +121,9 @@ function Cart() {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {cart.map( (item) => {
+                                                {cart.map( (item, idx) => {
                                                     return (
-                                                        <tr>
+                                                        <tr key={idx}>
                                                             <td width="10%">
                                                                 <img src={`http://localhost:8000/${item.product.image}`} alt={item.product.name} width="50px" height="50px"/>
                                                             </td>
@@ -116,15 +138,15 @@ function Cart() {
                                                             </td>
                                                             <td width="15%" className='text-center'>{item.product.selling_price * item.product_quantity} $</td>
                                                             <td width="10%" className='text-center'>
-                                                                <button type='button' class=" btn btn-danger btn-sm rounded-pill">
-                                                                    <i class="fas fa-times-circle"></i>
+                                                                <button type='button' onClick={ (e) => deleteCartItem(e, item.id)} className=" btn btn-danger btn-sm rounded-pill">
+                                                                    <i className="fas fa-times-circle"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
                                                     )    
                                                 })}
                                             </tbody>
-                                        </div>
+                                        </table>
                                     </div>
     }
     else

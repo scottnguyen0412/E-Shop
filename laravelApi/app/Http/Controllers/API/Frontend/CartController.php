@@ -113,4 +113,39 @@ class CartController extends Controller
             ]);
         }
     }
+
+
+    // Delete cart out of item
+    public function deleteCartItem($cart_id)
+    {
+        if(auth('sanctum')->check())
+        {
+            $user_id = auth('sanctum')->user()->id;
+            $cartItem = Cart::where('id', $cart_id)->where('user_id', $user_id)->first();
+            
+            // Nếu tìm thấy sản phẩm của user đang login
+            if($cartItem)
+            {
+                $cartItem->delete();
+                return response()->json([
+                    'status' => 200,
+                    'message'=> 'Cart removed successfully',
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'Cart Item not found',
+                ]);
+            }
+        }
+        else
+        {
+            return response()->json([
+                'status' => 401,
+                'message' =>'Login to continue',
+            ]);
+        }
+    }
 }
