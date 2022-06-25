@@ -15,7 +15,7 @@ class ProductController extends Controller
         $product = Product::all();
         return response()->json([
             'status'=> 200,
-            'products'=>$product
+            'products'=>$product,
         ]);
     }
 
@@ -70,21 +70,19 @@ class ProductController extends Controller
                 // Store image
                 $file->move('uploads/product', $filename);
                 $product->image = 'uploads/product/'.$filename;
-            
             }
             $product->featured = $request->input('featured');
             $product->popular = $request->input('popular');
             $product->status = $request->input('status');
             
             $product->save();
-
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Added Successfully',
             ]);
         }
     }
-    
+
     // Get all value for edit
     public function edit($id)
     {
@@ -133,18 +131,18 @@ class ProductController extends Controller
                 if($product)
                 {
                     $product->category_id = $request->input('category_id');
-                $product->slug = $request->input('slug');
-                $product->name = $request->input('name');
-                $product->description = $request->input('description');
+                    $product->slug = $request->input('slug');
+                    $product->name = $request->input('name');
+                    $product->description = $request->input('description');
 
-                $product->meta_title = $request->input('meta_title');
-                $product->meta_keyword = $request->input('meta_keyword');
-                $product->meta_description = $request->input('meta_description');
+                    $product->meta_title = $request->input('meta_title');
+                    $product->meta_keyword = $request->input('meta_keyword');
+                    $product->meta_description = $request->input('meta_description');
 
-                $product->brand = $request->input('brand');
-                $product->selling_price = $request->input('selling_price');
-                $product->original_price = $request->input('original_price');
-                $product->quantity = $request->input('quantity');
+                    $product->brand = $request->input('brand');
+                    $product->selling_price = $request->input('selling_price');
+                    $product->original_price = $request->input('original_price');
+                    $product->quantity = $request->input('quantity');
 
                 // handle image
                 if($request->hasFile('image'))

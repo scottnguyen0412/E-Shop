@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\Admin\CategoryController;
 use App\Http\Controllers\API\Admin\ProductController;
 use App\Http\Controllers\API\Frontend\FrontendController;
+use App\Http\Controllers\API\Frontend\CartController;
 
 
 
@@ -26,6 +27,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/getCategory', [FrontendController::class,'category']);
 Route::get('/fetchproducts/{slug}',[FrontendController::class, 'product']);
 Route::get('/view-products/{category_slug}/{product_slug}',[FrontendController::class,'viewproductDetail']);
+Route::post('/add-to-cart',[CartController::class, 'addtocart']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {
@@ -46,7 +48,6 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/edit-product/{id}',[ProductController::class, 'edit']);
     Route::post('/update-product/{id}',[ProductController::class,'update']);
 });
-
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 

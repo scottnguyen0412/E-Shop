@@ -183,17 +183,17 @@ function AddProduct() {
               <div className='row'>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Selling Price</label>
-                  <input type="text" name='selling_price' onChange={handleInput} value={productInput.selling_price} className='form-control' />
+                  <input type="number" name='selling_price' onChange={handleInput} value={productInput.selling_price} className='form-control' />
                   <small className='text-danger'>{errorlist.selling_price}</small>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Original Price</label>
-                  <input type="text" name='original_price' onChange={handleInput} value={productInput.original_price} className='form-control' />
+                  <input type="number" name='original_price' onChange={handleInput} value={productInput.original_price} className='form-control' />
                   <small className='text-danger'>{errorlist.original_price}</small>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>
                   <label>Quantity</label>
-                  <input type="text" name='quantity' onChange={handleInput} value={productInput.quantity} className='form-control' />
+                  <input type="number" name='quantity' onChange={handleInput} value={productInput.quantity} className='form-control' />
                   <small className='text-danger'>{errorlist.quantity}</small>
                 </div>
                 <div className='col-md-4 form-group mb-3 font-weight-bold'>

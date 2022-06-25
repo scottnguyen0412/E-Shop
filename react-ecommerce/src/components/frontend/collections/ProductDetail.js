@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import swal from 'sweetalert';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ function ProductDetail(props) {
         // được gắn vào
         let isMounted = true
 
-        // Get slug of product
+        // Get slug of product and category
         const category_slug = props.match.params.category;
         const product_slug = props.match.params.slug;
         axios.get(`/api/view-products/${category_slug}/${product_slug}`).then(res=> {
@@ -62,6 +62,36 @@ function ProductDetail(props) {
         }
     }
 
+    const submitAddtocart = (e) => {
+        e.preventDefault();
+
+        const data = {
+            // get product id from hook product
+            product_id: product.id,
+            // get quantity from hook quantity
+            product_quantity: quantity,
+        }
+
+        axios.post(`/api/add-to-cart`,data).then(res => {
+            if(res.data.status === 201)
+            {
+                swal("Success", res.data.message,"success")
+            }
+            else if(res.data.status === 409)
+            {
+                swal("Warning", res.data.message, "warning")
+            }
+            else if (res.data.status === 401)
+            {
+                swal('Error', res.data.message, 'error')
+            }
+            else if (res.data.status === 404)
+            {
+                swal('Warning', res.data.message, 'warning')
+            }
+        })
+    }
+
     if(loading)
     {
         return <h4>Loading Product Detail....
@@ -84,7 +114,7 @@ function ProductDetail(props) {
                                                 </div>
                                             </div>
                                             <div className='col-md-3 mt-3'>
-                                                <button type='button' className='btn btn-primary w-100'>Add to Cart</button>
+                                                <button type='button' className='btn btn-primary w-100' onClick={submitAddtocart}>Add to Cart</button>
                                             </div>
                                         </div>
                             </div>
@@ -92,7 +122,7 @@ function ProductDetail(props) {
         else
         {
             available_stock = <div>
-                                <label className='btn-sm btn-success px-4 mt-2'>Out of Stock</label>
+                                <label className='btn-sm btn-danger px-4 mt-2'>Out of Stock</label>
                             </div>
         }
     }
@@ -119,8 +149,8 @@ function ProductDetail(props) {
                                     </h4>
                                     <p>{product.description}</p>
                                     <h4 className='mb-1'>
-                                        $: {product.selling_price}
-                                        <s className='ms-2'>$: {product.original_price} </s>
+                                        $ {product.selling_price}
+                                        <s className='ms-2'>$ {product.original_price} </s>
                                     </h4>
                                     <div>
                                         {available_stock}

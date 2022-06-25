@@ -64,7 +64,7 @@ class FrontendController extends Controller
                                         ->where('status','0')
                                         ->first();
 
-            if($product) // Nếu product là có
+            if($product) // Nếu có product
             {
                 return response()->json([
                     'status'=>200,
