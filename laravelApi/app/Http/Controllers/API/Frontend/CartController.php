@@ -93,11 +93,19 @@ class CartController extends Controller
             // nếu $scope bằng chữ "increment" giống với bên cart.js bên phía reactjs thì cộng thêm 1
             if($scope == "increment")
             {
-                $cartItem->product_quantity += 1; 
+                // cart item cannot > 10
+                if($cartItem->product_quantity <= 10)
+                {
+                    $cartItem->product_quantity += 1; 
+                }
             }
             else if($scope == "decrement")
             {
-                $cartItem->product_quantity -= 1;
+                // cart item cannot < 1 
+                if($cartItem->product_quantity >=1)
+                {
+                    $cartItem->product_quantity -= 1;
+                }
             }
             $cartItem->update();
             return response()->json([
