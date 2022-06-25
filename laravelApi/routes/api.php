@@ -28,6 +28,8 @@ Route::get('/getCategory', [FrontendController::class,'category']);
 Route::get('/fetchproducts/{slug}',[FrontendController::class, 'product']);
 Route::get('/view-products/{category_slug}/{product_slug}',[FrontendController::class,'viewproductDetail']);
 Route::post('/add-to-cart',[CartController::class, 'addtocart']);
+// View cart
+Route::get('/cart',[CartController::class, 'viewcart']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {

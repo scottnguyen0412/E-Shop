@@ -61,4 +61,26 @@ class CartController extends Controller
             ]);
         }
     }
+
+    public function viewcart()
+    {
+        // Check user đăng nhập chưa .You can display all data user added to cart
+        if(auth('sanctum')->check())
+        {
+            $user_id = auth('sanctum')->user()->id;
+            // Check user đã login?
+            $cartItem = Cart::where('user_id',$user_id)->get();
+            return response()->json([
+                'status'=>200,
+                'cart'=> $cartItem,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>401,
+                'message'=> 'Login to View cart',
+            ]);
+        }
+    }
 }
