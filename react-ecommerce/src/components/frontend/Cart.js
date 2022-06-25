@@ -41,6 +41,39 @@ function Cart() {
             isMounted = false
       }
     }, [history])
+
+    const handleDecrement = (cart_id) => {
+        // Cập nhật số lượng product 
+        setCart(cart =>
+            cart.map( (item) => 
+            // item.product_quantity >1 ? 1:0: Điều kiện quantity ko được bé hơn 1
+                cart_id === item.id ? {...item, product_quantity: item.product_quantity - (item.product_quantity > 1 ? 1:0)} : item
+            )    
+        );
+        updateCartQuantity(cart_id, "decrement")
+    }
+
+    const handleIncrement = (cart_id) => {
+        // Cập nhật số lượng product 
+        setCart(cart =>
+            cart.map( (item) => 
+            // item.product_quantity <10 ? 1:0 : Điều kiện quanity ko được lớn hơn 10
+                cart_id === item.id ? {...item, product_quantity: item.product_quantity + (item.product_quantity <10 ? 1:0)} : item
+            )    
+        );
+        updateCartQuantity(cart_id, "increment")
+
+    }
+
+    // update quantity in database
+    function updateCartQuantity(cart_id, scope) {
+        axios.post(`/api/cart-updatequantity/${cart_id}/${scope}`).then(res => {
+            if(res.data.status === 200)
+            {
+                // swal("Success", res.data.message, "success")
+            }
+        });
+    }
     
     if(loading)
     {
@@ -76,9 +109,9 @@ function Cart() {
                                                             <td width="15%" className='text-center'>{item.product.selling_price}</td>
                                                             <td width="15%">
                                                                 <div className='input-group'>
-                                                                    <button type='button' className='input-group-text btn btn-primary'>-</button>
+                                                                    <button type='button' onClick={() => handleDecrement(item.id)} className='input-group-text btn btn-primary'>-</button>
                                                                     <div className='form-control text-center'>{item.product_quantity}</div>
-                                                                    <button type='button' className='input-group-text btn btn-primary'>+</button>
+                                                                    <button type='button' onClick={() => handleIncrement(item.id)} className='input-group-text btn btn-primary'>+</button>
                                                                 </div>
                                                             </td>
                                                             <td width="15%" className='text-center'>{item.product.selling_price * item.product_quantity} $</td>

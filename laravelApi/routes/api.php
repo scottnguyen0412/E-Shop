@@ -31,6 +31,8 @@ Route::post('/add-to-cart',[CartController::class, 'addtocart']);
 // View cart
 Route::get('/cart',[CartController::class, 'viewcart']);
 
+Route::post('/cart-updatequantity/{cart_id}/{scope}',[CartController::class, 'updateQuantity']);
+
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {
         return response()->json(['messages' => 'You are in', 'status' => 200], 200);

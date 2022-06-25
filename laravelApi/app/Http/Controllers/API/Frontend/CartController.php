@@ -83,4 +83,34 @@ class CartController extends Controller
             ]);
         }
     }
+
+    public function updateQuantity($cart_id, $scope)
+    {
+        if(auth('sanctum')-> check())
+        {
+            $user_id = auth('sanctum')->user()->id;
+            $cartItem = Cart::where('id', $cart_id)->where('user_id', $user_id)->first();
+            // nếu $scope bằng chữ "increment" giống với bên cart.js bên phía reactjs thì cộng thêm 1
+            if($scope == "increment")
+            {
+                $cartItem->product_quantity += 1; 
+            }
+            else if($scope == "decrement")
+            {
+                $cartItem->product_quantity -= 1;
+            }
+            $cartItem->update();
+            return response()->json([
+                'status'=> 200,
+                'message'=> 'Quantity updated',
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=> 401,
+                'message'=>'Login to continue',
+            ]);
+        }
+    }
 }
