@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zipcode');
-            $table->bigInteger('payment_id')->nullable();
+            $table->string('payment_id')->nullable();
             $table->string('payment_mode');
             $table->string('tracking_no');
             $table->tinyInteger('status')->default('0');

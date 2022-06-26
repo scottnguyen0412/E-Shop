@@ -37,6 +37,8 @@ Route::delete('/delete-cartitem/{cart_id}',[CartController::class, 'deleteCartIt
 // checkout
 Route::post('/place-order', [CheckoutController::class, 'placeorder']);
 
+Route::post('/validate-order', [CheckoutController::class, 'validateOrder']);
+
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function () {
     Route::get('/checkAuthenticated', function () {
         return response()->json(['messages' => 'You are in', 'status' => 200], 200);

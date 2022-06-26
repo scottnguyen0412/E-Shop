@@ -83,7 +83,8 @@ function ProductDetail(props) {
             }
             else if (res.data.status === 401)
             {
-                swal('Error', res.data.message, 'error')
+                swal('Error', res.data.message, 'error');
+                history.push('/register');
             }
             else if (res.data.status === 404)
             {

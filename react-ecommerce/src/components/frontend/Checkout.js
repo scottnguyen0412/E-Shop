@@ -60,7 +60,7 @@ function Checkout() {
         setCheckoutInput({...checkoutInput, [e.target.name]: e.target.value});
     }
 
-    const submitOrder = (e) => {
+    const submitOrder = (e, payment_mode) => {
         e.preventDefault();
         const data = {
             firstname: checkoutInput.firstname,
@@ -70,24 +70,79 @@ function Checkout() {
             address: checkoutInput.address,
             city: checkoutInput.city,
             state: checkoutInput.state,
-            zipcode: checkoutInput.zipcode
+            zipcode: checkoutInput.zipcode,
+            payment_mode: payment_mode,
+            payment_id: '',
         }
 
-        axios.post(`/api/place-order`, data).then(res => {
-            if(res.data.status === 200)
-            {
-                swal("Order placed Successfully", res.data.message, "success");
-                // Nếu input from user correct thì remove error 
-                setError([])
-                history.push("/thank-you");
-            }
-            // 422 means input feilds from user error
-            else if (res.data.status === 422)
-            {
-                swal("All feilds are empty or missing", "", "error");
-                setError(res.data.errors);
-            }
-        })
+        switch(payment_mode){
+            case 'cod':
+                    axios.post(`/api/place-order`, data).then(res => {
+                    if(res.data.status === 200)
+                    {
+                        swal("Order placed Successfully", res.data.message, "success");
+                        // Nếu input from user correct thì remove error 
+                        setError([])
+                        history.push("/thank-you");
+                    }
+                    // 422 means input feilds from user error
+                    else if (res.data.status === 422)
+                    {
+                        swal("All feilds are empty or missing", "", "error");
+                        setError(res.data.errors);
+                    }
+                });
+                break;
+            case 'razorpay':
+                    axios.post(`/api/validate-order`, data).then(res => {
+                        if(res.data.status === 200)
+                        {
+                            // Nếu input from user correct thì remove error 
+                            setError([]);
+                            var options = {
+                                "key": "rzp_test_5B0shgWsGSEUMM", // Enter the Key ID generated from the Dashboard
+                                "amount": (100 * 1), // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                                "name": "Scott E-shop",
+                                "description": "Thank you for purchasing with Scott E-shop",
+                                "image": "https://example.com/your_logo",
+                                "handler": function (response){
+                                    // console.log(response.razorpay_payment_id);
+                                    data.payment_id = response.razorpay_payment_id;
+                                    axios.post(`/api/place-order`, data).then(res => {
+                                    if(res.data.status === 200)
+                                    {
+                                        swal("Order placed Successfully", res.data.message, "success");
+                                        // Nếu input from user correct thì remove error 
+                                        setError([])
+                                        history.push("/thank-you");
+                                    }
+                                    });
+                                },
+                                "prefill": {
+                                    "name": data.firstname + data.lastname,
+                                    "email": data.email,
+                                    "contact": data.phone
+                                },
+                                "theme": {
+                                    "color": "#3399cc"
+                                }
+                            };
+                            var rzp1 = new window.Razorpay(options);
+                            rzp1.open();
+                            // history.push("/thank-you");
+                        }
+                        // 422 means input feilds from user error
+                        else if (res.data.status === 422)
+                        {
+                            swal("All feilds are empty or missing", "", "error");
+                            setError(res.data.errors);
+                        }
+                    });
+                break;
+                
+            default:
+                break; 
+        }
     }
 
     if(loading)
@@ -167,7 +222,8 @@ function Checkout() {
                                                     </div>
                                                     <div className='col-md-12'>
                                                         <div className='form-group text-end'>
-                                                            <button type='button' className='btn btn-primary' onClick={submitOrder}><i className="fas fa-credit-card"> Place Order</i></button>
+                                                            <button type='button' className='btn btn-primary' onClick={(e)=> submitOrder(e, 'cod')}><i className="fas fa-credit-card"> Place Order</i></button>
+                                                            <button type='button' className='btn btn-primary' onClick={(e)=> submitOrder(e, 'razorpay')}><i className="fab fa-amazon-pay"> Payment Online</i></button>
                                                         </div>
                                                     </div>
                                                     </div>
